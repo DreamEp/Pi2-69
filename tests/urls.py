@@ -12,6 +12,7 @@ from tests.views import (
 	tests_list_student_view,
 	tests_history_view,
 	tests_analysis_view,
+	real_tests_analysis_view,
 )
 
 app_name = 'tests'
@@ -25,6 +26,8 @@ urlpatterns = [
 	path('manage/display/mcq/<str:input_id_test>/', test_mcq_display_view, name='Display mcq test'),
 	path('manage/list/', tests_list_teacher_view, name='List tests teacher'),
 	path('manage/analysis/', tests_analysis_view, name='Analyse tests'),
+	path('manage/analysis/display/<str:input_id_test>/', real_tests_analysis_view, name='Real test analysis'),
+
 
 	# Student
 	path('pass/<str:input_id_test>', test_pass_view, name='Pass test'),

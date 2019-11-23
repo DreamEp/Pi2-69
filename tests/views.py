@@ -71,6 +71,8 @@ def test_pass_view(request, input_id_test):
 	}
 	return render(request, 'pass_tests/test_pass.html', context)
 
+	
+
 
 def test_mcq_pass_view(request, input_id_test):
 	form_questions = get_object_or_404(Test_mcq_end_session, id_test=input_id_test)
@@ -132,12 +134,20 @@ def tests_history_view(request):
 def tests_analysis_view(request):
 	# Analysis of the students' results
 	normal_test = Pass_test_end_session.objects.all()
-	mcqu_test = Pass_test_mcq_end_session.objects.all()
+	mcq_test = Pass_test_mcq_end_session.objects.all()
 	context = {
 		'tests_list_normal': normal_test,
-		'tests_list_mcq': mcqu_test
+		'tests_list_mcq': mcq_test
 	}
 	return render(request, 'manage_tests/tests_analysis.html', context)
+
+def real_tests_analysis_view(request):
+	# Analysis of the students' results
+	form = get_object_or_404(Pass_test_end_session, id_test=input_id_test)
+	context = {
+		'form': form
+	}
+	return render(request, 'manage_tests/real_tests_analysis.html', context)
 
 
 def test_mcq_display_view(request, input_id_test):

@@ -59,6 +59,25 @@ class Pass_test_end_session(models.Model):
 			return False
 
 
+class Analyze_test_end_session(models.Model):
+	id_analyze = models.CharField(max_length=10, null=False)
+	list_answer_q1 = models.TextField()
+	list_answer_q2 = models.TextField()
+	list_answer_q3 = models.TextField()
+	list_answer_q4 = models.TextField()
+	list_answer_q5 = models.TextField()
+	list_answer_q6 = models.TextField()
+	list_answer_q7 = models.TextField()
+	list_answer_q8 = models.TextField()
+	list_answer_q9 = models.TextField()
+	list_answer_q10 = models.TextField()
+	
+	def get_absolute_url(self):
+		# dynamic (if 'my_app' is renamed in the url, it will adapt)
+		return reverse('tests:Display test', kwargs={'input_id_analyze': self.id_analyze})
+
+
+
 
 ## Multiple tests ##
 

@@ -6,11 +6,17 @@
 
     <h1>Analysis</h1>
     <!-- TODO: build analytics -->
+    <h2>Standart test list : </h2>
     {% for instance in tests_list_normal %}
-        <p>{{ instance.id_test }}</p>
+        <p> 
+            <a href="{% url 'tests:Real test analysis' input_id_test=instance.id_test %}">Test {{ instance.id_test }} : {{ instance.id }} </a>
+        </p>
     {% endfor %}
+    <h2>Mcq test list : </h2>
     {% for instance2 in tests_list_mcq %}
-        <p>{{ instance2.id }}</p>
+    <p> 
+        <a href="{% url 'tests:Real test analysis' input_id_test=instance.id_test %}">Test {{ instance2.id_test }} : {{ instance2.id }} </a>
+    </p>
     {% endfor %}
 </div>
 

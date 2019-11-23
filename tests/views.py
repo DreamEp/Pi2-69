@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .forms import TestForm, PassTestForm, TestMcqForm, PassTestMcqForm
-from .models import Test_end_session, Pass_test_end_session, Test_mcq_end_session
+from .models import Test_end_session, Pass_test_end_session, Test_mcq_end_session, Pass_test_mcq_end_session
 
 
 # Create your views here.
@@ -131,9 +131,11 @@ def tests_history_view(request):
 
 def tests_analysis_view(request):
 	# Analysis of the students' results
-	queryset = Pass_test_end_session.objects.all()
+	normal_test = Pass_test_end_session.objects.all()
+	mcqu_test = Pass_test_mcq_end_session.objects.all()
 	context = {
-		'tests_list': queryset
+		'tests_list_normal': normal_test,
+		'tests_list_mcq': mcqu_test
 	}
 	return render(request, 'manage_tests/tests_analysis.html', context)
 

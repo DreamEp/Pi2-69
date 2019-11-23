@@ -34,6 +34,7 @@ class Pass_test_end_session(models.Model):
 	"""
 	id_test = models.CharField(max_length=10, null=False)
 	id_student = models.CharField(max_length=10, null=False)
+	#question = models.TextField()
 	q1 = models.TextField()
 	q2 = models.TextField()
 	q3 = models.TextField()

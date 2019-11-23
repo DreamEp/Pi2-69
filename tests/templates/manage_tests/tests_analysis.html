@@ -6,8 +6,11 @@
 
     <h1>Analysis</h1>
     <!-- TODO: build analytics -->
-    {% for instance in tests_list %}
-        <p>{{ instance.id_student }}</p>
+    {% for instance in tests_list_normal %}
+        <p>{{ instance.id_test }}</p>
+    {% endfor %}
+    {% for instance2 in tests_list_mcq %}
+        <p>{{ instance2.id }}</p>
     {% endfor %}
 </div>
 

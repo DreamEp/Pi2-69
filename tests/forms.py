@@ -14,6 +14,47 @@ class TestForm(forms.ModelForm):
 	# Properly displayed
 	id_test = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder':'test id'}))
 	title = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Test title'}))
+	"""def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        questions = Test_end_sessionquestion.objects.filter(
+            Test_end_session=self.instance
+        )
+        for i in range(len(questions) + 1):
+            field_name = 'question_%s' % (i,)
+            self.fields[field_name] = forms.CharField(required=False)
+            try:
+                self.initial[field_name] = questions[i].question
+            except IndexError:
+                self.initial[field_name] = “”
+        # create an extra blank field
+        field_name = 'question_%s' % (i + 1,)
+        self.fields[field_name] = forms.CharField(required=False)
+
+    def clean(self):
+        questions = set()
+        i = 0
+        field_name = 'question_%s' % (i,)
+        while self.cleaned_data.get(field_name):
+           question = self.cleaned_data[field_name]
+           if question in questions:
+               self.add_error(field_name, 'Duplicate')
+           else:
+               questions.add(question)
+           i += 1
+           field_name = 'question_%s' % (i,)
+       self.cleaned_data[“questions”] = questions
+	
+    def save(self):
+        Test_end_session = self.instance
+        Test_end_session. = self.cleaned_data[“first_name”]
+        Test_end_session.last_name = self.cleaned_data[“last_name”]
+
+        Test_end_session.question_set.all().delete()
+        for question in self.cleaned_data[“questions”]:
+           Test_end_sessionquestion.objects.create(
+               Test_end_session=Test_end_session,
+               question=question,
+			   """
 	q1 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
 	q2 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
 	q3 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
@@ -30,7 +71,7 @@ class TestForm(forms.ModelForm):
 		model = Test_end_session
 		fields = [
 			'id_test',
-			'title',
+			'title',		
 			'q1',
 			'q2',
 			'q3',
@@ -41,12 +82,14 @@ class TestForm(forms.ModelForm):
 			'q8',
 			'q9',
 			'q10'
+			
 		]
 	
 
 class PassTestForm(forms.ModelForm):
 	id_test = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder':'test id'}))
 	id_student = forms.CharField(required=True)
+	#questions = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
 	q1 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
 	q2 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
 	q3 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
@@ -63,7 +106,7 @@ class PassTestForm(forms.ModelForm):
 		model = Pass_test_end_session
 		fields = [
 			'id_test',
-			'id_student',
+			'id_student',			
 			'q1',
 			'q2',
 			'q3',
@@ -74,6 +117,7 @@ class PassTestForm(forms.ModelForm):
 			'q8',
 			'q9',
 			'q10'
+			
 		]
 
 
@@ -96,9 +140,9 @@ class PassTestForm(forms.ModelForm):
 	def assess_answer(self, *args, **kwargs):
 		# Retrieve expected answer and format from the db.
 		# Compare wt. the answer and yield a grade accordingly
-		# TODO: handle it for each questions, since it is currently
+		# TODO: handle it for each questionss, since it is currently
 		# handling the whole form, although the comparison is supposed
-		# to be made on a unique question.
+		# to be made on a unique questions.
 		
 		self.clean_data()
 
@@ -132,14 +176,14 @@ class PassTestForm(forms.ModelForm):
 
 ## Multiple choices forms ##
 
-# TODO: create dynamic number of questions
+# TODO: create dynamic number of questionss
 class TestMcqForm(forms.ModelForm):
 	# Properly displayed
 	
 	id_test = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder':'test id'}))
 	title = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Test title'}))
 	id_q = forms.IntegerField()
-	question = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder':'Question to the student'}))
+	questions = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder':'questions to the student'}))
 	#answer_num = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, label="Possible choice number")	
 	answer_num_exp = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, label="Choice expected number")
 	answer_text_correspnd = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Corresponding answer'}))
@@ -151,7 +195,7 @@ class TestMcqForm(forms.ModelForm):
 			'id_test',
 			'title',
 			'id_q',
-			'question',
+			'questions',
 			'answer_num',
 			'answer_num_exp',
 			'answer_text_correspnd'

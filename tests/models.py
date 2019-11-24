@@ -32,7 +32,8 @@ class Pass_test_end_session(models.Model):
 	"""
 	Model for the students records of passing the test
 	"""
-	id_test = models.CharField(max_length=10, null=False)
+	id_pass_test = models.CharField(max_length=10, primary_key=True)
+	id_test = models.ForeignKey(Test_end_session, on_delete=models.CASCADE)
 	id_student = models.CharField(max_length=10, null=False)
 	#question = models.TextField()
 	q1 = models.TextField()
@@ -47,10 +48,10 @@ class Pass_test_end_session(models.Model):
 	q10 = models.TextField()
 
 	def get_absolute_url(self):
-		return reverse('tests:Display test', kwargs={'input_id_test': self.id_test})
+		return reverse('tests:Display test', kwargs={'input_id_pass_test': self.id_pass_test})
 
 	class Meta:
-		unique_together = ('id_test', 'id_student')
+		unique_together = ('id_pass_test', 'id_student')
 
 	def test_dumb_id_student_not_admin(self):
 		if not self.id_student == 'admin':
@@ -86,7 +87,7 @@ class Test_mcq_end_session(models.Model):
 	Model for the tests_mcq_end_session:
 	TODO: how to make a dynamic number of questions
 	"""
-	id_test = models.CharField(max_length=10, null=False)
+	id_test = models.CharField(max_length=10, primary_key=True)
 	title = models.CharField(max_length=50)
 	id_q = models.IntegerField(null=False)
 	question = models.CharField(max_length=50, null=False)
@@ -131,16 +132,17 @@ class Pass_test_mcq_end_session(models.Model):
 	"""
 	Model for the students records of passing the test
 	"""
-	id_test = models.CharField(max_length=10, null=False)
+	id_pass_test = models.CharField(max_length=10, primary_key=True)
+	id_test = models.ForeignKey(Test_mcq_end_session, on_delete=models.CASCADE)
 	id_student = models.CharField(max_length=10, null=False)
 	id_q = models.IntegerField(null=False)
 	input_answer_num = models.IntegerField(null=False)
 
 	def get_absolute_url(self):
-		return reverse('tests:Display mcq test', kwargs={'input_id_test': self.id_test})
+		return reverse('tests:Display mcq test', kwargs={'input_id_pass_test': self.id_pass_test})
 
 	class Meta:
-		unique_together = ('id_test', 'id_student', 'id_q')
+		unique_together = ('id_pass_test', 'id_student', 'id_q')
 
 
 

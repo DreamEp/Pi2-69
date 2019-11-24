@@ -46,8 +46,11 @@ def test_display_view(request, input_id_test):
 
 
 def test_pass_view(request, input_id_test):
+	""" Show page displaying pass test with his questions """
 	form_questions = get_object_or_404(Test_end_session, id_test=input_id_test)
 	form_answers = PassTestForm(request.POST or None)
+	form_answers.id_test = input_id_test
+
 	#form_answers.id_student = ?
 
 	if form_answers.is_valid():
@@ -133,7 +136,8 @@ def tests_history_view(request):
 
 def tests_analysis_view(request):
 	# Analysis of the students' results
-	normal_test = Pass_test_end_session.objects.all()
+	normal_test = Test_end_session.objects.all()
+	#normal_test = Pass_test_end_session.objects.all().values('id_test').distinct()
 	mcq_test = Pass_test_mcq_end_session.objects.all()
 	context = {
 		'tests_list_normal': normal_test,
@@ -141,18 +145,18 @@ def tests_analysis_view(request):
 	}
 	return render(request, 'manage_tests/tests_analysis.html', context)
 
-def real_tests_analysis_view(request):
+def real_tests_analysis_view(request, input_id_test):
 	# Analysis of the students' results
-	form = get_object_or_404(Pass_test_end_session, id_test=input_id_test)
+	test_list = Pass_test_end_session.objects.filter(id_test = input_id_test)
 	context = {
-		'form': form
+		'test_list': test_list
 	}
 	return render(request, 'manage_tests/real_tests_analysis.html', context)
 
 
-def test_mcq_display_view(request, input_id_test):
+def test_mcq_display_view(request, input_id_pass_test):
 	# Retrieve and display the requested mcq form
-	form = get_object_or_404(Test_mcq_end_session, id_test=input_id_test)
+	form = get_object_or_404(Test_mcq_end_session, id_pass_test=input_id_pass_test)
 	context = {
 		'form': form
 	}

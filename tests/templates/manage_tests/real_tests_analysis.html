@@ -3,19 +3,25 @@ s{% extends 'base.html' %}
 {% block content %}
 
 <div class='body'>
-	<h1>Form {{ form.id_test }}</h1>
-
-	<h2>Questions:</h2>
-	<p>{{ form.q1 }}</p> 
-	<p>{{ form.q2 }}</p>
-	<p>{{ form.q3 }}</p>
-	<p>{{ form.q4 }}</p>
-	<p>{{ form.q5 }}</p>
-	<p>{{ form.q6 }}</p>
-	<p>{{ form.q7 }}</p>
-	<p>{{ form.q8 }}</p>
-	<p>{{ form.q9 }}</p>
-	<p>{{ form.q10 }}</p>
+	<h1>Analysis</h1>
+    <h2>All Answer for test : {{test_list.title}} </h2>
+    {% for test in test_list %}
+        <p> 
+			<br></br>
+			<h3>Test {{ test.id_pass_test }} : {{ test.title }}</h3>
+			<p>Question 1 : {{test.q1}}</p>
+			<p>Question 2 : {{test.q2}}</p>	
+			<p>Question 3 : {{test.q3}}</p>		
+			<p>Question 4 : {{test.q4}}</p>		
+			<p>Question 5 : {{test.q5}}</p>			
+			<p>Question 6 : {{test.q6}}</p>		
+        	<p>Question 7 : {{test.q7}}</p>			
+			<p>Question 8 : {{test.q8}}</p>			
+			<p>Question 9 : {{test.q9}}</p>		
+			<p>Question 10 : {{test.q10}}</p>	
+			
+        </p>
+    {% endfor %}
 </div>
 
 {% endblock content %}

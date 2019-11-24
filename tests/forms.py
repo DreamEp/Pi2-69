@@ -87,7 +87,9 @@ class TestForm(forms.ModelForm):
 	
 
 class PassTestForm(forms.ModelForm):
-	id_test = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder':'test id'}))
+	id_pass_test = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder':'enter test pass id'}))
+	#id_test = forms.CharField(required=True, TestForm.id_test),
+	# widget=forms.TextInput(attrs={'placeholder':'test id'}))
 	id_student = forms.CharField(required=True)
 	#questions = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
 	q1 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
@@ -105,7 +107,8 @@ class PassTestForm(forms.ModelForm):
 	class Meta:
 		model = Pass_test_end_session
 		fields = [
-			'id_test',
+			'id_pass_test',
+			'id_test',			
 			'id_student',			
 			'q1',
 			'q2',

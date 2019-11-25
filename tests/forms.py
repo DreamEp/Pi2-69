@@ -179,7 +179,9 @@ class PassTestForm(forms.ModelForm):
 
 ## Multiple choices forms ##
 
-# TODO: create dynamic number of questionss
+# TODO: create dynamic number of questions
+
+
 class TestMcqForm(forms.ModelForm):
 	# Properly displayed
 	
@@ -187,7 +189,7 @@ class TestMcqForm(forms.ModelForm):
 	title = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Test title'}))
 	id_q = forms.IntegerField()
 	questions = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder':'questions to the student'}))
-	#answer_num = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, label="Possible choice number")	
+	answer_num = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, label="Possible choice number")	
 	answer_num_exp = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, label="Choice expected number")
 	answer_text_correspnd = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Corresponding answer'}))
 
@@ -220,3 +222,9 @@ class PassTestMcqForm(forms.ModelForm):
 			'q_num',
 			'select_answer_num'
 		]
+		
+	
+	"""class TestMcqForm(forms.ModelForm):
+		id_test = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder':'test id'}))
+		title = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Test title'}))"""
+

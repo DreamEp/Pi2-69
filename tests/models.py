@@ -62,16 +62,16 @@ class Pass_test_end_session(models.Model):
 
 class Analyze_test_end_session(models.Model):
 	id_analyze = models.CharField(max_length=10, null=False)
-	list_answer_q1 = models.TextField()
-	list_answer_q2 = models.TextField()
-	list_answer_q3 = models.TextField()
-	list_answer_q4 = models.TextField()
-	list_answer_q5 = models.TextField()
-	list_answer_q6 = models.TextField()
-	list_answer_q7 = models.TextField()
-	list_answer_q8 = models.TextField()
-	list_answer_q9 = models.TextField()
-	list_answer_q10 = models.TextField()
+	list_Choice_q1 = models.TextField()
+	list_Choice_q2 = models.TextField()
+	list_Choice_q3 = models.TextField()
+	list_Choice_q4 = models.TextField()
+	list_Choice_q5 = models.TextField()
+	list_Choice_q6 = models.TextField()
+	list_Choice_q7 = models.TextField()
+	list_Choice_q8 = models.TextField()
+	list_Choice_q9 = models.TextField()
+	list_Choice_q10 = models.TextField()
 	
 	def get_absolute_url(self):
 		# dynamic (if 'my_app' is renamed in the url, it will adapt)
@@ -91,9 +91,9 @@ class Test_mcq_end_session(models.Model):
 	title = models.CharField(max_length=50)
 	id_q = models.IntegerField(null=False)
 	question = models.CharField(max_length=50, null=False)
-	answer_num = models.IntegerField(null=False)
-	answer_num_exp = models.IntegerField(null=False)
-	answer_text_correspnd = models.TextField()
+	Choice_num = models.IntegerField(null=False)
+	Choice_num_exp = models.IntegerField(null=False)
+	Choice_text_correspnd = models.TextField()
 
 	def get_absolute_url(self):
 		return reverse('tests:Display mcq test', kwargs={'input_id_test': self.id_test})
@@ -104,9 +104,9 @@ class Test_mcq_end_session(models.Model):
 		# 	'id_q': self.id_q,
 		# 	'title': self.title,
 		# 	'question': self.question,
-		# 	'answer_num': self.answer_num,
-		# 	'answer_num_exp': self.answer_num_exp,
-		# 	'answer_text_correspnd': self.answer_text_correspnd
+		# 	'Choice_num': self.Choice_num,
+		# 	'Choice_num_exp': self.Choice_num_exp,
+		# 	'Choice_text_correspnd': self.Choice_text_correspnd
 		# }
 
 		str_table = """
@@ -136,7 +136,7 @@ class Pass_test_mcq_end_session(models.Model):
 	id_test = models.ForeignKey(Test_mcq_end_session, on_delete=models.CASCADE)
 	id_student = models.CharField(max_length=10, null=False)
 	id_q = models.IntegerField(null=False)
-	input_answer_num = models.IntegerField(null=False)
+	input_Choice_num = models.IntegerField(null=False)
 
 	def get_absolute_url(self):
 		return reverse('tests:Display mcq test', kwargs={'input_id_pass_test': self.id_pass_test})
@@ -149,26 +149,45 @@ class Pass_test_mcq_end_session(models.Model):
 
 # Normalized implementation
 
-class Test(models.Model):
+class User(models.Model):
+	id_user = models.CharField(max_length=12, primary_key=True)
+	username = models.CharField(max_length=20)
+	password = models.CharField(max_length=20)
+
+"""class Test(models.Model):
 	id_test = models.CharField(max_length=12, primary_key=True)
 	name = models.CharField(max_length=20)
 	description = models.CharField(max_length=200, null=True)
 
 	def __str__(self):
-		return self.id_test
+		return self.id_test"""
+
+class Test(models.Model):
+	id_user = models.ForeignKey(User, )
+	title = models.CharField(max_length=64)
+	time = models.IntegerField(default=0)
+	def __str__(self):
+		return self.title
 
 
-class Question(models.Model):
+"""class Question(models.Model):
 	id_test = models.ForeignKey(Test, on_delete=models.CASCADE)
 	id_question = models.CharField(max_length=12, primary_key=True)
 	question_text = models.CharField(max_length=200)
 
 	def __str__(self):
 		output = "{}, {}".format(self.id_test, self.id_question)
-		return output
+		return output"""
+
+class Question(models.Model):
+	id_test = models.ForeignKey(Test, on_delete=models.CASCADE)
+	question_text = models.CharField(max_length=200)
+	answer = models.IntegerField(default=0)
+	def __str__(self):
+		return self.question_text
 
 
-class Choice(models.Model):
+"""class Choice(models.Model):
 	id_test = models.ForeignKey(Test, on_delete=models.CASCADE)
 	id_question = models.ForeignKey(Question, on_delete=models.CASCADE)
 	id_choice = models.CharField(max_length=12, primary_key=True)
@@ -176,5 +195,20 @@ class Choice(models.Model):
 	is_correct = models.BooleanField(default=False)
 
 	def __str__(self):
-		output = "{}, {}, {}".format(self.id_test, self.id_question, self.id_choice)
-		return output
+		output = "{}, {}, {}".format(self.id_test, self.id_question, self.id_Choice)
+		return output"""
+
+class Choice(models.Model):
+	id_question = models.ForeignKey(Question, on_delete=models.CASCADE)
+	choice_text = models.CharField(max_length=200)
+	def __str__(self):
+		return self.choice_text		
+
+class Score(models.Model):
+	score = models.IntegerField(default=0)
+	id_user = models.ForeignKey(User, on_delete=models.CASCADE)
+	id_test = models.ForeignKey(Test, on_delete=models.CASCADE)
+	start_time = models.CharField(max_length=64)
+	end_time = models.CharField(max_length=64)
+	def __str__(self):
+		return self.test.title

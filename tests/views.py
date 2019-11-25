@@ -49,7 +49,7 @@ def test_pass_view(request, input_id_test):
 	""" Show page displaying pass test with his questions """
 	form_questions = get_object_or_404(Test_end_session, id_test=input_id_test)
 	form_answers = PassTestForm(request.POST or None)
-	form_answers.id_test = input_id_test
+	form_answers.id_test = form_questions.id_test
 
 	#form_answers.id_student = ?
 

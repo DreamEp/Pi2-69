@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='body'>
+	
+	<form method='POST'> {% csrf_token %}
+        <h1>Passing Test ID {{ test.id }} : {{ test.title}}</h1>
+        <h2>Student ID : {{ pass_test.id_student }}</h2>
+        <ul>
+            {% for question in question.test.question_set.all %}                
+                <p> Question {{ question.id }} : <li>{{ question.question_text }} </li> </p>
+                {% for choice in question.choice_set.all %} 
+                    <p> Answer {{ choice.id }} : <li>{{ choice.choice_text }} </li> </p>
+                {% endfor %}
+            {% endfor %}
+       </ul>
+    </form>
+
+</div>   
+{% endblock content %}

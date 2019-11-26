@@ -60,25 +60,6 @@ class Pass_test_end_session(models.Model):
 			return False
 
 
-class Analyze_test_end_session(models.Model):
-	id_analyze = models.CharField(max_length=10, null=False)
-	list_Choice_q1 = models.TextField()
-	list_Choice_q2 = models.TextField()
-	list_Choice_q3 = models.TextField()
-	list_Choice_q4 = models.TextField()
-	list_Choice_q5 = models.TextField()
-	list_Choice_q6 = models.TextField()
-	list_Choice_q7 = models.TextField()
-	list_Choice_q8 = models.TextField()
-	list_Choice_q9 = models.TextField()
-	list_Choice_q10 = models.TextField()
-	
-	def get_absolute_url(self):
-		# dynamic (if 'my_app' is renamed in the url, it will adapt)
-		return reverse('tests:Display test', kwargs={'input_id_analyze': self.id_analyze})
-
-
-
 
 ## Multiple tests ##
 
@@ -149,11 +130,6 @@ class Pass_test_mcq_end_session(models.Model):
 
 # Normalized implementation
 
-class User(models.Model):
-	id_user = models.CharField(max_length=12, primary_key=True)
-	username = models.CharField(max_length=20)
-	password = models.CharField(max_length=20)
-
 """class Test(models.Model):
 	id_test = models.CharField(max_length=12, primary_key=True)
 	name = models.CharField(max_length=20)
@@ -163,11 +139,15 @@ class User(models.Model):
 		return self.id_test"""
 
 class Test(models.Model):
-	id_user = models.ForeignKey(User, )
 	title = models.CharField(max_length=64)
-	time = models.IntegerField(default=0)
 	def __str__(self):
 		return self.title
+
+class PassTest(models.Model):
+	id_student = models.CharField(max_length=10, null=False)
+	id_test = models.ForeignKey(Test, on_delete=models.CASCADE)
+	def __str__(self):
+		return self.id_student
 
 
 """class Question(models.Model):
@@ -182,7 +162,6 @@ class Test(models.Model):
 class Question(models.Model):
 	id_test = models.ForeignKey(Test, on_delete=models.CASCADE)
 	question_text = models.CharField(max_length=200)
-	answer = models.IntegerField(default=0)
 	def __str__(self):
 		return self.question_text
 
@@ -201,9 +180,11 @@ class Question(models.Model):
 class Choice(models.Model):
 	id_question = models.ForeignKey(Question, on_delete=models.CASCADE)
 	choice_text = models.CharField(max_length=200)
+	check_button = models.BooleanField(blank = True, default=False)
 	def __str__(self):
 		return self.choice_text		
 
+"""
 class Score(models.Model):
 	score = models.IntegerField(default=0)
 	id_user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -211,4 +192,4 @@ class Score(models.Model):
 	start_time = models.CharField(max_length=64)
 	end_time = models.CharField(max_length=64)
 	def __str__(self):
-		return self.test.title
+		return self.test.title"""

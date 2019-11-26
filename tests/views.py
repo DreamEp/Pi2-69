@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from .forms import TestForm, PassTestForm, TestMcqForm, PassTestMcqForm
-from .models import Test_end_session, Pass_test_end_session, Test_mcq_end_session, Pass_test_mcq_end_session
+from django.http import HttpResponse, HttpResponseRedirect
+from .forms import TestForm, PassTestForm, TestMcqForm, PassTestMcqForm, CreateTestForm, CreateQuestionForm, CreateChoiceForm, PassTestForm2
+from .models import Test_end_session, Pass_test_end_session, Test_mcq_end_session, Pass_test_mcq_end_session, Choice, Question, Test, PassTest
 
 
 # Create your views here.
@@ -109,9 +110,11 @@ def tests_list_teacher_view(request):
 	# List all the tests of the db
 	tests_list_normal_questions = Test_end_session.objects.all()
 	testlist_mcq = Test_mcq_end_session.objects.all()
+	test = Test.objects.all()
 	context = {
 		'tests_list': tests_list_normal_questions,
-		'tests_mcq_list': testlist_mcq
+		'tests_mcq_list': testlist_mcq,
+		'test':test
 	}
 	return render(request, 'manage_tests/tests_list_teacher.html', context)
 
@@ -119,9 +122,11 @@ def tests_list_student_view(request):
 	# List all the tests of the db
 	tests_list_normal_questions = Test_end_session.objects.all()
 	testlist_mcq = Test_mcq_end_session.objects.all()
+	test = Test.objects.all()
 	context = {
 		'tests_list': tests_list_normal_questions,
-		'tests_mcq_list': testlist_mcq
+		'tests_mcq_list': testlist_mcq,
+		'test':test
 	}
 	return render(request, 'pass_tests/tests_list_student.html', context)
 
@@ -162,3 +167,36 @@ def test_mcq_display_view(request, input_id_pass_test):
 	}
 	return render(request, 'manage_tests/test_mcq_display.html', context)
 
+def pass_test_view(request, id):
+	test = get_object_or_404(Test, id = id)
+	pass_test = PassTest(request.POST or None)
+	context = {
+		'test' : test,
+		'pass_test' : pass_test
+	}
+	return render(request, 'manage_tests/pass_test.html', context)
+
+def create_test_view(request):
+	if request.method == "POST":
+		form = CreateTestForm(request.POST)
+		formq = CreateQuestionForm(request.POST)
+		formc = CreateChoiceForm(request.POST)
+		if form.is_valid():			
+			t = form.cleaned_data["title"]
+			test = Test(title = t)
+			test.save
+		if formq.is_valid():
+			q = formq.cleaned_data["question_text"]
+			question = Question(question_text = q)
+			question.save
+		if formc.is_valid():
+			c = formc.cleaned_data["choice_text"]
+			b = formc.cleaned_data["check_button"]
+			choice = Choice(choice_text = c, check_button = b)				
+			choice.save					
+	context = {
+		'form' : form,
+		'formq' : formq,
+		'formc' : formc
+	}
+	return render(request, 'manage_tests/tests_list_teacher.html', context)

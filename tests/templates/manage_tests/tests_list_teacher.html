@@ -23,6 +23,15 @@
             </p>
     {% endfor %}
 
+    <h2> Test test:</h2>
+
+    {% for instance in test %}
+            <p>
+                    <a href='{{ instance.get_absolute_url }}'>Test {{ instance.id }}</a>: {{ instance.title }}
+                <!-- {{ instance.description }} -->
+            </p>
+    {% endfor %}
+
 </div>
 
 {% endblock content %}

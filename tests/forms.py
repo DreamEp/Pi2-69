@@ -3,12 +3,54 @@ from .models import (
 	Test_end_session,
 	Pass_test_end_session,
 	Test_mcq_end_session,
-	Pass_test_mcq_end_session
+	Pass_test_mcq_end_session,
+	PassTest,
+	Test,
+	Question,
+	Choice,
 )
 
 from .backend_code import compare_input_wt_expected as compare
 
+class CreateTestForm(forms.ModelForm):
+	title = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Test title' }))
+	class Meta:
+		model = Test
+		fields = [
+			'title',					
+		]
 
+class CreateQuestionForm(forms.ModelForm):
+	question_text = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100, 'placeholder':'put the question here'}))
+	class Meta:
+		model = Question
+		fields = [
+			'question_text',					
+		]
+
+class CreateChoiceForm(forms.ModelForm):
+	class Meta:
+		model = Choice
+		choice_text = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100, 'placeholder':'put the answer here'}))
+		check_button = forms.BooleanField(required=False, initial=False)
+		fields = [
+			'choice_text',
+			'check_button',				
+		]
+
+
+class PassTestForm2(forms.ModelForm):
+	id_student = forms.CharField(required=True)
+	question = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
+	answer = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
+	class Meta:
+		model = PassTest
+		fields = [
+			'id_student',		
+			'question',
+			'answer',			
+		]	
+	
 
 class TestForm(forms.ModelForm):
 	# Properly displayed

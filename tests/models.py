@@ -13,15 +13,26 @@ class Test_end_session(models.Model):
 	id_test = models.CharField(max_length=10, null=False, primary_key=True)
 	title = models.CharField(max_length=50)
 	q1 = models.TextField()
+	a1 = models.TextField()
 	q2 = models.TextField()
+	a2 = models.TextField()
 	q3 = models.TextField()
+	a3 = models.TextField()
 	q4 = models.TextField()
+	a4 = models.TextField()
 	q5 = models.TextField()
+	a5 = models.TextField()
 	q6 = models.TextField()
+	a6 = models.TextField()
 	q7 = models.TextField()
+	a7 = models.TextField()
 	q8 = models.TextField()
+	a8 = models.TextField()
 	q9 = models.TextField()
+	a9 = models.TextField()
 	q10 = models.TextField()
+	a10 = models.TextField()
+
 
 	def get_absolute_url(self):
 		# dynamic (if 'my_app' is renamed in the url, it will adapt)
@@ -126,7 +137,24 @@ class Pass_test_mcq_end_session(models.Model):
 		unique_together = ('id_pass_test', 'id_student', 'id_q')
 
 
+class Mark:
+    counter = 0
 
+    def increment(self):
+        self.counter += 1
+        return ''
+
+    def decrement(self):
+        self.counter -= 1
+        return ''
+
+    def double(self):
+        self.counter *= 2
+        return ''
+		
+    def init(self):
+	    self.counter = 0
+	    return ''
 
 # Normalized implementation
 

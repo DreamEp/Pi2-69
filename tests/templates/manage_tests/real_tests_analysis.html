@@ -2,26 +2,74 @@ s{% extends 'base.html' %}
 
 {% block content %}
 
-<div class='body'>
-	<h1>Analysis</h1>
-    <h2>All Answer for test : {{test_list.title}} </h2>
-    {% for test in test_list %}
-        <p> 
-			<br></br>
-			<h3>Test {{ test.id_pass_test }} : {{ test.title }}</h3>
-			<p>Question 1 : {{test.q1}}</p>
-			<p>Question 2 : {{test.q2}}</p>	
-			<p>Question 3 : {{test.q3}}</p>		
-			<p>Question 4 : {{test.q4}}</p>		
-			<p>Question 5 : {{test.q5}}</p>			
-			<p>Question 6 : {{test.q6}}</p>		
-        	<p>Question 7 : {{test.q7}}</p>			
-			<p>Question 8 : {{test.q8}}</p>			
-			<p>Question 9 : {{test.q9}}</p>		
-			<p>Question 10 : {{test.q10}}</p>	
-			
-        </p>
-    {% endfor %}
-</div>
+<h1>Real test analysis of : {{test.title}}</h1>
+<h2>All the pass test by the students : </h2>
+
+{% for pass_test in passtest_list %}
+	{{mark.init}}
+	<h3>Pass Test : {{pass_test.id_pass_test}}</h3>
+	<h3>Student : {{pass_test.id_student}}</h3>
+	{% if pass_test.q1 == test.a1 %}
+		<li>Answer 1 : {{pass_test.q1}} - True</li>
+		{{mark.increment}}
+	{% else %}
+		<li>Answer 1 : {{pass_test.q1}} - False</li>
+	{% endif %}
+	{% if pass_test.q2 == test.a2 %}
+		<li>Answer 2 : {{pass_test.q2}} - True</li>
+		{{mark.increment}}
+	{% else %}
+		<li>Answer 2 : {{pass_test.q2}} - False</li>
+	{% endif %}
+	{% if pass_test.q3 == test.a3 %}
+		<li>Answer 3 : {{pass_test.q3}} - True</li>
+		{{mark.increment}}
+	{% else %}
+		<li>Answer 3 : {{pass_test.q3}} - False</li>
+	{% endif %}
+	{% if pass_test.q4 == test.a4 %}
+		<li>Answer 4 : {{pass_test.q4}} - True</li>
+		{{mark.increment}}
+	{% else %}
+		<li>Answer 4 : {{pass_test.q4}} - False</li>
+	{% endif %}
+	{% if pass_test.q5 == test.a5 %}
+		<li>Answer 5 : {{pass_test.q5}} - True</li>
+		{{mark.increment}}
+	{% else %}
+		<li>Answer 5 : {{pass_test.q5}} - False</li>
+	{% endif %}
+	{% if pass_test.q6 == test.a6 %}
+		<li>Answer 6 : {{pass_test.q6}} - True</li>
+		{{mark.increment}}
+	{% else %}
+		<li>Answer 6 : {{pass_test.q6}} - False</li>
+	{% endif %}
+	{% if pass_test.q7 == test.a7 %}
+		<li>Answer 7 : {{pass_test.q7}} - True</li>
+		{{mark.increment}}
+	{% else %}
+		<li>Answer 7 : {{pass_test.q7}} - False</li>
+	{% endif %}
+	{% if pass_test.q8 == test.a8 %}
+		<li>Answer 8 : {{pass_test.q8}} - True</li>
+		{{mark.increment}}
+	{% else %}
+		<li>Answer 8 : {{pass_test.q8}} - False</li>
+	{% endif %}
+	{% if pass_test.q9 == test.a9 %}
+		<li>Answer 9 : {{pass_test.q9}} - True</li>
+		{{mark.increment}}
+	{% else %}
+		<li>Answer 9 : {{pass_test.q9}} - False</li>
+	{% endif %}
+	{% if pass_test.q10 == test.a10 %}
+		<li>Answer 10 : {{pass_test.q10}} - True</li>
+		{{mark.increment}}
+	{% else %}
+		<li>Answer 10 : {{pass_test.q10}} - False</li>
+	{% endif %}
+	<h4>Student mark : {{mark.counter}}</h4>
+{% endfor %}
 
 {% endblock content %}

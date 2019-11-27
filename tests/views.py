@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import TestForm, PassTestForm, TestMcqForm, PassTestMcqForm, CreateTestForm, CreateQuestionForm, CreateChoiceForm, PassTestForm2
-from .models import Test_end_session, Pass_test_end_session, Test_mcq_end_session, Pass_test_mcq_end_session, Choice, Question, Test, PassTest
+from .models import Test_end_session, Pass_test_end_session, Test_mcq_end_session, Pass_test_mcq_end_session, Choice, Question, Test, PassTest, Mark
 
 
 # Create your views here.
@@ -16,7 +16,6 @@ def test_standard_create_view(request):
 	if form.is_valid():
 		form.save()
 		form = TestForm()
-
 	context = {
 		'form': form
 	}
@@ -151,10 +150,14 @@ def tests_analysis_view(request):
 	return render(request, 'manage_tests/tests_analysis.html', context)
 
 def real_tests_analysis_view(request, input_id_test):
-	# Analysis of the students' results
-	test_list = Pass_test_end_session.objects.filter(id_test = input_id_test)
+	# Analysis of the students' results	
+	mark = Mark()
+	passtest_list = Pass_test_end_session.objects.filter(id_test = input_id_test)
+	test = get_object_or_404(Test_end_session, id_test = input_id_test)
 	context = {
-		'test_list': test_list
+		'passtest_list': passtest_list,
+		'test':test,
+		'mark':mark,
 	}
 	return render(request, 'manage_tests/real_tests_analysis.html', context)
 

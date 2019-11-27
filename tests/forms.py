@@ -98,15 +98,25 @@ class TestForm(forms.ModelForm):
                question=question,
 			   """
 	q1 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
+	a1 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
 	q2 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
+	a2 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
 	q3 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
+	a3 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
 	q4 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
+	a4 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
 	q5 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
+	a5 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
 	q6 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
+	a6 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
 	q7 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
+	a7 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
 	q8 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
+	a8 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
 	q9 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
+	a9 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
 	q10 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
+	a10 = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100}))
 
 	# Robustly Handled
 	class Meta:
@@ -115,16 +125,25 @@ class TestForm(forms.ModelForm):
 			'id_test',
 			'title',		
 			'q1',
+			'a1',
 			'q2',
+			'a2',
 			'q3',
+			'a3',
 			'q4',
+			'a4',
 			'q5',
+			'a5',
 			'q6',
+			'a6',
 			'q7',
+			'a7',
 			'q8',
+			'a8',
 			'q9',
-			'q10'
-			
+			'a9',
+			'q10',
+			'a10'			
 		]
 	
 

@@ -25,14 +25,15 @@ class CreateQuestionForm(forms.ModelForm):
 	class Meta:
 		model = Question
 		fields = [
+			
 			'question_text',					
 		]
 
 class CreateChoiceForm(forms.ModelForm):
+	choice_text = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100, 'placeholder':'put the answer here'}))
+	check_button = forms.BooleanField(required=False, initial=False)
 	class Meta:
-		model = Choice
-		choice_text = forms.CharField(widget=forms.Textarea(attrs={'rows':1, 'cols':100, 'placeholder':'put the answer here'}))
-		check_button = forms.BooleanField(required=False, initial=False)
+		model = Choice		
 		fields = [
 			'choice_text',
 			'check_button',				

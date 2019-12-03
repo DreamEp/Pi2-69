@@ -4,12 +4,10 @@
 
 <form method='POST'>
     {% csrf_token %}
-    {{form.as_p}}
-    {{formq.as_p}}
-    {{formc.as_p}}
+    {{form.as_p}}    
     <button type = "submit", name ="save">Save</button>
-    <button type = "submit", name ="add_question">Add Question</button>
-    <button type = "submit", name ="add_answer">Add Answer</button>
+    <button type = "submit", name ="add_question", onclick={{formq.as_p}}>Add Question</button>
+    <button type = "submit", name ="add_answer", onclick={{formc.as_p}}>Add Answer</button>
 </form>
 
 

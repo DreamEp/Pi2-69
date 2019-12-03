@@ -180,26 +180,38 @@ def pass_test_view(request, id):
 	return render(request, 'manage_tests/pass_test.html', context)
 
 def create_test_view(request):
-	if request.method == "POST":
-		form = CreateTestForm(request.POST)
-		formq = CreateQuestionForm(request.POST)
-		formc = CreateChoiceForm(request.POST)
-		if form.is_valid():			
-			t = form.cleaned_data["title"]
-			test = Test(title = t)
-			test.save
-		if formq.is_valid():
-			q = formq.cleaned_data["question_text"]
-			question = Question(question_text = q)
-			question.save
-		if formc.is_valid():
-			c = formc.cleaned_data["choice_text"]
-			b = formc.cleaned_data["check_button"]
-			choice = Choice(choice_text = c, check_button = b)				
-			choice.save					
-	context = {
-		'form' : form,
-		'formq' : formq,
-		'formc' : formc
-	}
-	return render(request, 'manage_tests/tests_list_teacher.html', context)
+	
+	form = CreateTestForm(request.POST or None)
+	formq = CreateQuestionForm(request.POST or None)
+
+	formc = CreateChoiceForm(request.POST or None)
+	
+	if form.is_valid():			
+		form.save
+		form = CreateTestForm()
+
+		if "add_question" in request.POST:
+			formq.id_test = form.id
+			if formq.is_valid():
+				formq.save
+				formq = CreateQuestionForm()
+
+		elif "add_answer" in request.POST:
+			formc.id_question = formq.id
+			if formc.is_valid():
+				formc.save
+				formc = CreateChoiceForm()
+
+		
+			"""
+			if formq.is_valid():
+				q = formq.cleaned_data["question_text"]
+				question = Question(question_text = q)
+				question.save
+				if formc.is_valid():
+					c = formc.cleaned_data["choice_text"]
+					b = formc.cleaned_data["check_button"]
+					choice = Choice(choice_text = c, check_button = b)				
+					choice.save	"""				
+	
+	return render(request, 'manage_tests/create_test.html', {'form': form, 'formq':formq, 'formc':formc})

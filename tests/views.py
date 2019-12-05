@@ -183,7 +183,6 @@ def create_test_view(request):
 	
 	form = CreateTestForm(request.POST or None)
 	formq = CreateQuestionForm(request.POST or None)
-
 	formc = CreateChoiceForm(request.POST or None)
 	
 	if form.is_valid():			

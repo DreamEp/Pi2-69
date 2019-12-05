@@ -158,13 +158,7 @@ class Mark:
 
 # Normalized implementation
 
-"""class Test(models.Model):
-	id_test = models.CharField(max_length=12, primary_key=True)
-	name = models.CharField(max_length=20)
-	description = models.CharField(max_length=200, null=True)
 
-	def __str__(self):
-		return self.id_test"""
 
 class Test(models.Model):
 	title = models.CharField(max_length=64)
@@ -178,14 +172,6 @@ class PassTest(models.Model):
 		return self.id_student
 
 
-"""class Question(models.Model):
-	id_test = models.ForeignKey(Test, on_delete=models.CASCADE)
-	id_question = models.CharField(max_length=12, primary_key=True)
-	question_text = models.CharField(max_length=200)
-
-	def __str__(self):
-		output = "{}, {}".format(self.id_test, self.id_question)
-		return output"""
 
 class Question(models.Model):
 	id_test = models.ForeignKey(Test, on_delete=models.CASCADE)
@@ -194,17 +180,6 @@ class Question(models.Model):
 		return self.question_text
 
 
-"""class Choice(models.Model):
-	id_test = models.ForeignKey(Test, on_delete=models.CASCADE)
-	id_question = models.ForeignKey(Question, on_delete=models.CASCADE)
-	id_choice = models.CharField(max_length=12, primary_key=True)
-	choice_text = models.CharField(max_length=200)
-	is_correct = models.BooleanField(default=False)
-
-	def __str__(self):
-		output = "{}, {}, {}".format(self.id_test, self.id_question, self.id_Choice)
-		return output"""
-
 class Choice(models.Model):
 	id_question = models.ForeignKey(Question, on_delete=models.CASCADE)
 	choice_text = models.CharField(max_length=200)
@@ -212,12 +187,4 @@ class Choice(models.Model):
 	def __str__(self):
 		return self.choice_text		
 
-"""
-class Score(models.Model):
-	score = models.IntegerField(default=0)
-	id_user = models.ForeignKey(User, on_delete=models.CASCADE)
-	id_test = models.ForeignKey(Test, on_delete=models.CASCADE)
-	start_time = models.CharField(max_length=64)
-	end_time = models.CharField(max_length=64)
-	def __str__(self):
-		return self.test.title"""
+
